@@ -13,9 +13,39 @@ def abreInst():
     return conteudo                                     #retorta lista
 
 #===========================================================================================================================
+"""geraArestas() - Função auxiliar para a função geraGrafo(),
+                   essa função organiza as arestas e pesos 3 a 3 em uma lista de listas"""
+def geraArestas(arestas):
+    arestAux = []
+    cont = len(arestas)/3                               #cont recebe a qtd de arestas e pesos
+    for x in range(int(cont)):
+        arestAux.append(arestas[x*3:x*3+3])             #arestAux recebe cada aresta e peso organizado 3 a 3
+    return arestAux 
+#===========================================================================================================================
+"""geraGrafo - Função termina de formatar a entrada e gera um grafo das listas de adjacências de cada nodo,
+               com seus respectivos pesos, sendo essas adjcências tanto do inicio para o fim quanto do fim para o inicio."""
+def geraGrafo(arestasEpesos,mn):
+    arestas = geraArestas(arestasEpesos)
+    grafo=[[]]
+    for x in range(mn[0]-1):                            #laço para criar os nodos dentro da lista grafo
+        grafo.append([])
 
+    for cont in range(len(arestas)):                    
+        inicio = arestas[cont][0]                       #divisão das informações de cada aresta
+        final = arestas[cont][1]
+        peso = arestas[cont][2]
+
+        grafo[inicio].append([final,peso])              #criação das adjacências partindo do inicio para o final da aresta
+        grafo[final].append([inicio,peso])              #criação das adjacências partindo do final para o inicio da aresta
+    return grafo
+        
 #===========================================================================================================================
 #"main()"
-
 conteudoFormatado = abreInst()
-print(conteudoFormatado)
+mn = conteudoFormatado[:2]
+arestasEpesos = conteudoFormatado[2:]
+grafo = geraGrafo(arestasEpesos,mn)
+
+print(arestasEpesos)                                    #impressão do conteudo formatado do arquivo sem o mn
+for nodo in grafo:
+    print("nodo ",grafo.index(nodo),": ",nodo)          #impressão dos nodos do grafo finalizado
