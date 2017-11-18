@@ -46,6 +46,6 @@ mn = conteudoFormatado[:2]
 arestasEpesos = conteudoFormatado[2:]
 grafo = geraGrafo(arestasEpesos,mn)
 
-print(arestasEpesos)                                    #impressão do conteudo formatado do arquivo sem o mn
+print(geraArestas(arestasEpesos))                                    #impressão do conteudo formatado do arquivo sem o mn
 for nodo in grafo:
     print("nodo ",grafo.index(nodo),": ",nodo)          #impressão dos nodos do grafo finalizado
